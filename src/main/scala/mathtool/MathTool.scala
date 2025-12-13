@@ -6,6 +6,8 @@ import scala.scalajs.js.annotation.*
 import org.scalajs.dom
 import com.raquo.laminar.api.L.{*, given}
 
+import mathtool.TestSimpleParser
+
 // import javascriptLogo from "/javascript.svg"
 @js.native @JSImport("/javascript.svg", JSImport.Default)
 val javascriptLogo: String = js.native
@@ -34,6 +36,7 @@ object Main:
       p(className := "read-the-docs",
         "Click on the Vite logo to learn more",
       ),
+      div(parseButton())
     )
   end appElement
 end Main
@@ -47,3 +50,12 @@ end Main
       onClick --> { event => counter.update(c => c + 1) },
     )
   end counterButton
+
+def parseButton():Element =
+  var output = Var("Click button.")
+  button(
+    tpe := "button",
+    child.text <-- output,
+    onClick --> { event => output.update(str => TestSimpleParser.run) }
+  )
+end parseButton

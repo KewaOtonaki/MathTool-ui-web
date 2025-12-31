@@ -7,9 +7,10 @@ case class WordFreq(word: String, count: Int) {
 }
 
 class SimpleParser extends RegexParsers {
-  def word: Parser[String]   = """[a-z]+""".r       ^^ { _.toString }
-  def number: Parser[Int]    = """(0|[1-9]\d*)""".r ^^ { _.toInt }
-  def freq: Parser[WordFreq] = word ~ number        ^^ { case wd ~ fr => WordFreq(wd,fr) }
+  def word: Parser[String]   = """[a-z]+""".r           ^^ { _.toString }
+  def number: Parser[Int]    = """(0|[1-9]\d*)""".r     ^^ { _.toInt }
+  def double: Parser[Double] = """(0|[1-9]\d*).\d+""".r ^^ { _.toDouble }
+  def freq: Parser[WordFreq] = word ~ number            ^^ { case wd ~ fr => WordFreq(wd,fr) }
 }
 
 object TestSimpleParser extends SimpleParser {
